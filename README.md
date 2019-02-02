@@ -17,3 +17,4 @@ Currently, the app is set to only work on the sites listed below.
 
 ## White-listed sites
 * developer.chrome.com
+* http://127.0.0.1:8080/index.html
