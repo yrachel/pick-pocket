@@ -1,0 +1,25 @@
+.bigboi {
+  color: black;
+}
+
+.textboi {
+  color: black;
+  font-size: 2em;
+}
+
+.boxboi {
+  background-color: #666666;
+  opacity: 0.4;
+}
+
+.parallax {
+  height: 500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.img1 {
+  background-image: url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/H8WuRINimqur8ud/textile-background-fabric-texture_blgxgll1q_thumbnail-full01.png") !important;
+}
