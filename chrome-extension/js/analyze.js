@@ -1,9 +1,4 @@
 var images = document.getElementsByTagName('img');
-/*srcList = [];
-
-for (var i = 0; i < images.length; i++){
-	srcList.push(images[i].src);
-}*/
 
 function postData(url, threshold){
 	$.ajax({
@@ -12,11 +7,13 @@ function postData(url, threshold){
    		data: {url: url, threshold: threshold},
    		success: function(response) {
     		window.alert(response)
+			if (response=="false") {
+				$('img[src="'+url+'"]').hide();
+			}
    		},
    		error: function(xhr){
    			alert('Status Text: ' + xhr.statusText + ' ' + xhr.responseText)
    		}
-
 	});
 }
 

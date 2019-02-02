@@ -16,15 +16,15 @@ chrome.storage.sync.get('onState', function(data) {
 
 toggleState.onclick = function() {
     chrome.storage.sync.get('onState', function(data) {
-        var newState = data.onState=='off' ? 'on' : 'off';
-        chrome.storage.sync.set({onState: newState}, function callback() {
-            console.log("The onState is updated.");
-        });
-        updateToggleButton(data.onState);
-        if (newState == 'on') {
+        // var newState = data.onState=='off' ? 'on' : 'off';
+        // chrome.storage.sync.set({onState: newState}, function callback() {
+        //     console.log("The onState is updated.");
+        // });
+        // updateToggleButton(data.onState);
+        // if (newState == 'on') {
             chrome.tabs.executeScript(null,{
-                file: 'js/contentTest.js'
+                file: 'js/analyze.js'
             });
-        }
+        // }
     });
 };

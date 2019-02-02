@@ -3,13 +3,27 @@ chrome.runtime.onInstalled.addListener(function() {
         console.log("The onState is off.");
     });
     chrome.declarativeContent.onPageChanged.removeRules(undefined, function(){
-        chrome.declarativeContent.onPageChanged.addRules(
-        [{
+        chrome.declarativeContent.onPageChanged.addRules([
+        {
             conditions: [new chrome.declarativeContent.PageStateMatcher({
                 pageUrl: {hostEquals: 'developer.chrome.com'},
             })
         ],
                 actions: [new chrome.declarativeContent.ShowPageAction()]
-        }]);
+        },
+
+        {    conditions: [new chrome.declarativeContent.PageStateMatcher({
+                pageUrl: {hostEquals: '127.0.0.1'},
+            })
+        ],
+                actions: [new chrome.declarativeContent.ShowPageAction()]
+        }
+    ]);
     })
 });
+
+// chrome.runtime.onMessage.addListener(function(message)) {
+//     if (message.action == 'submit the form') {
+//
+//     }
+// }

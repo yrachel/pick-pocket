@@ -8,20 +8,20 @@ app=Flask(__name__, static_url_path='')
 @app.route('/index.html')
 def send_index():
     #return send_from_directory('html', 'chrome-extension/test.html')
-    page = open('chrome-extension/test.html', 'r')
+    page = open('test.html', 'r')
     return page.read()
 
-@app.route('/analyze')
-def send_js():
-    page = open('chrome-extension/analyze.js', 'r')
-    return page.read()
+# @app.route('/analyze')
+# def send_js():
+#     page = open('chrome-extension/js/analyze.js', 'r')
+#     return page.read()
 
 @app.route('/has_pocket', methods=['GET', 'POST'])
 def has_pocket():
     """Detects labels in the file located in Google Cloud Storage or on the
     Web."""
     url = request.form['url']
-    threshold = request.form['threshold']
+    threshold = float(request.form['threshold'])
 
     client = vision.ImageAnnotatorClient()
     image = vision.types.Image()
