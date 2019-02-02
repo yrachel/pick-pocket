@@ -1,0 +1,20 @@
+{
+    "name": "Pick Pocket",
+    "version": "1.0",
+    "description": "Automatically hide clothing options that don't contain pockets.",
+    "permissions": ["declarativeContent", "storage"],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "page_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "images/PickPocket16.png"
+        }
+    },
+    "icons": {
+        "16": "images/PickPocket16.png"
+    },
+    "manifest_version": 2
+  }
