@@ -2,9 +2,9 @@
     "name": "Pick Pocket",
     "version": "1.0",
     "description": "Automatically hide clothing options that don't contain pockets.",
-    "permissions": ["declarativeContent", "storage"],
+    "permissions": ["declarativeContent", "storage", "activeTab"],
     "background": {
-        "scripts": ["background.js"],
+        "scripts": ["js/background.js"],
         "persistent": false
     },
     "page_action": {
