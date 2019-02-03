@@ -3,6 +3,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "pickpocket-0977cb997aac.json"
 from flask import Flask, render_template, redirect, url_for,request, send_from_directory
 from flask import make_response
 from google.cloud import vision
+
 app=Flask(__name__, static_url_path='')
 client = vision.ImageAnnotatorClient()
 
@@ -30,28 +31,25 @@ def has_pocket():
     url = request.form['url']
     threshold = float(request.form['threshold'])
 
-    # image = vision.types.Image()
-    # image.source.image_uri = url
-    # print(url)
-    #
-    # response = client.label_detection(image=image)
-    image = {
-        'image': {
-            'source': { 'image_uri': url }
-        }
-    }
-    response = client.annotate_image(image)
+    image = vision.types.Image()
+    image.source.image_uri = url
+    print(url)
 
+    response = client.label_detection(image=image)
     labels = response.label_annotations
-    pocketness = [obj.score for obj in labels if obj.description == 'Pocket']
-    if len(pocketness)>0 and pocketness[0] > threshold:
-        print("true! {}".format(pocketness[0]))
+    try:
+        pocketness = [ e.score for e in response.label_annotations if e.description == "Pocket" ][0]
+    except IndexError:
+        pocketness = None
+
+    if pocketness is not None and pocketness > threshold:
+        print("true! {}".format(pocketness))
         return "true"
     else:
-        if len(pocketness) == 0:
+        if pocketness is None:
             print("no pocket found")
         else:
-            print("pocket val too low: {}".format(pocketness[0]))
+            print("pocket val too low: {}".format(pocketness))
         return "false"
 
 if __name__ == "__main__":
