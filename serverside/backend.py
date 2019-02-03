@@ -9,20 +9,17 @@ client = vision.ImageAnnotatorClient()
 
 @app.route('/index.html')
 def send_index():
-    #return send_from_directory('html', 'chrome-extension/test.html')
-    page = open('public/index.html', 'r')
-    return page.read()
+    return render_template('index.html')
+    # page = open('public/index.html', 'r')
+    # return page.read()
 
 @app.route('/test.html')
 def send_test():
-    #return send_from_directory('html', 'chrome-extension/test.html')
-    page = open('test.html', 'r')
-    return page.read()
+    return render_template('test.html')
+    # return send_from_directory('html', 'chrome-extension/test.html')
 
-# @app.route('/analyze')
-# def send_js():
-#     page = open('chrome-extension/js/analyze.js', 'r')
-#     return page.read()
+    # page = open('test.html', 'r')
+    # return page.read()
 
 @app.route('/has_pocket', methods=['GET', 'POST'])
 def has_pocket():
