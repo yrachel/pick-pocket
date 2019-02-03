@@ -4,9 +4,16 @@ from flask import Flask, render_template, redirect, url_for,request, send_from_d
 from flask import make_response
 from google.cloud import vision
 app=Flask(__name__, static_url_path='')
+client = vision.ImageAnnotatorClient()
 
 @app.route('/index.html')
 def send_index():
+    #return send_from_directory('html', 'chrome-extension/test.html')
+    page = open('public/index.html', 'r')
+    return page.read()
+
+@app.route('/test.html')
+def send_test():
     #return send_from_directory('html', 'chrome-extension/test.html')
     page = open('test.html', 'r')
     return page.read()
@@ -23,16 +30,28 @@ def has_pocket():
     url = request.form['url']
     threshold = float(request.form['threshold'])
 
-    client = vision.ImageAnnotatorClient()
-    image = vision.types.Image()
-    image.source.image_uri = url
+    # image = vision.types.Image()
+    # image.source.image_uri = url
+    # print(url)
+    #
+    # response = client.label_detection(image=image)
+    image = {
+        'image': {
+            'source': { 'image_uri': url }
+        }
+    }
+    response = client.annotate_image(image)
 
-    response = client.label_detection(image=image)
     labels = response.label_annotations
     pocketness = [obj.score for obj in labels if obj.description == 'Pocket']
-    if pocketness[0] > threshold:
+    if len(pocketness)>0 and pocketness[0] > threshold:
+        print("true! {}".format(pocketness[0]))
         return "true"
     else:
+        if len(pocketness) == 0:
+            print("no pocket found")
+        else:
+            print("pocket val too low: {}".format(pocketness[0]))
         return "false"
 
 if __name__ == "__main__":

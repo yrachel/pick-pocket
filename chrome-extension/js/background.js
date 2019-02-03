@@ -4,19 +4,32 @@ chrome.runtime.onInstalled.addListener(function() {
     });
     chrome.declarativeContent.onPageChanged.removeRules(undefined, function(){
         chrome.declarativeContent.onPageChanged.addRules([
-        {
-            conditions: [new chrome.declarativeContent.PageStateMatcher({
-                pageUrl: {hostEquals: 'developer.chrome.com'},
-            })
-        ],
-                actions: [new chrome.declarativeContent.ShowPageAction()]
-        },
 
-        {    conditions: [new chrome.declarativeContent.PageStateMatcher({
-                pageUrl: {hostEquals: '127.0.0.1'},
-            })
+        // activate on white-listed sites
+        {
+            conditions: [
+                new chrome.declarativeContent.PageStateMatcher({
+                    pageUrl: {hostEquals: 'developer.chrome.com'},
+                })
         ],
-                actions: [new chrome.declarativeContent.ShowPageAction()]
+            actions: [new chrome.declarativeContent.ShowPageAction()]
+        },
+        {
+            conditions: [
+                new chrome.declarativeContent.PageStateMatcher({
+                    pageUrl: {hostEquals: '127.0.0.1'},
+                })
+        ],
+            actions: [new chrome.declarativeContent.ShowPageAction()]
+        },
+        // activate on sites containing image tags
+        {
+            conditions: [
+                new chrome.declarativeContent.PageStateMatcher({
+                    css: ["img"],
+                })
+        ],
+            actions: [new chrome.declarativeContent.ShowPageAction()]
         }
     ]);
     })
